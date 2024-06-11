@@ -1,6 +1,6 @@
 
 
-#include <catch2/catch.hpp>
+#include <catch2/catch_all.hpp>
 #include <pareto/front.h>
 #include <pareto/point.h>
 

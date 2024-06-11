@@ -1,6 +1,6 @@
 
 #include "../test_helpers.h"
-#include <catch2/catch.hpp>
+#include <catch2/catch_all.hpp>
 #include <pareto/common/demangle.h>
 #ifdef implicit_TREETAG
 #include <pareto/implicit_tree.h>

@@ -1,7 +1,7 @@
 
 
 #include "../test_helpers.h"
-#include <catch2/catch.hpp>
+#include <catch2/catch_all.hpp>
 
 TEST_CASE("Front Interface") {
     SECTION("Front 2d") {

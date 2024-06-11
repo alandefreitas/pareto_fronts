@@ -8,7 +8,7 @@
 CPMAddPackage(
         NAME Catch2
         GITHUB_REPOSITORY catchorg/Catch2
-        VERSION 2.12.1
+        VERSION 3.4.0
         OPTIONS
         "CATCH_USE_VALGRIND OFF"
         "CATCH_BUILD_TESTING OFF"
@@ -19,17 +19,14 @@ CPMAddPackage(
         "CATCH_INSTALL_DOCS OFF"
         "CATCH_INSTALL_HELPERS OFF"
 )
-include(${Catch2_SOURCE_DIR}/contrib/Catch.cmake)
-add_library(catch_main ${Catch2_SOURCE_DIR}/examples/000-CatchMain.cpp)
-target_link_libraries(catch_main PUBLIC Catch2)
-target_exception_options(catch_main)
-
+list(APPEND CMAKE_MODULE_PATH ${Catch2_SOURCE_DIR}/extras)
+include(Catch)
 #######################################################
 ### Concepts                                        ###
 #######################################################
 # Make sure objects respect the concepts defined by the STL
 add_executable(ut_concepts concepts.cpp)
-target_link_libraries(ut_concepts PUBLIC pareto catch_main)
+target_link_libraries(ut_concepts PUBLIC pareto Catch2::Catch2WithMain)
 target_longtests_definitions(ut_concepts)
 target_exception_options(ut_concepts)
 target_bigobj_options(ut_concepts)
@@ -43,7 +40,7 @@ endif ()
 #######################################################
 # Create test with the tests_point_and_query_box_instantiation
 add_executable(ut_point point.cpp)
-target_link_libraries(ut_point PUBLIC pareto catch_main)
+target_link_libraries(ut_point PUBLIC pareto Catch2::Catch2WithMain)
 target_longtests_definitions(ut_point)
 target_exception_options(ut_point)
 target_bigobj_options(ut_point)
@@ -54,7 +51,7 @@ catch_discover_tests(ut_point)
 #######################################################
 # Create test with the tests_point_and_query_box_instantiation
 add_executable(ut_pmr_test pmr_test.cpp)
-target_link_libraries(ut_pmr_test PUBLIC pareto catch_main)
+target_link_libraries(ut_pmr_test PUBLIC pareto Catch2::Catch2WithMain)
 target_longtests_definitions(ut_pmr_test)
 target_exception_options(ut_pmr_test)
 target_bigobj_options(ut_pmr_test)
@@ -71,7 +68,7 @@ endif()
 foreach (TREETAG ${TREETAGS})
     # Create test with the tests_tree_instantiation
     add_executable(ut_${TREETAG}_tree container_fuzz.cpp)
-    target_link_libraries(ut_${TREETAG}_tree PUBLIC pareto catch_main)
+    target_link_libraries(ut_${TREETAG}_tree PUBLIC pareto Catch2::Catch2WithMain)
     target_compile_definitions(ut_${TREETAG}_tree PRIVATE ${TREETAG}_TREETAG)
     target_exception_options(ut_${TREETAG}_tree)
     target_bigobj_options(ut_${TREETAG}_tree)
@@ -87,7 +84,7 @@ endforeach ()
 foreach (TREETAG ${TREETAGS})
     # Create test with the tests_tree_instantiation
     add_executable(ut_${TREETAG}_front_fuzz front_fuzz.cpp)
-    target_link_libraries(ut_${TREETAG}_front_fuzz PUBLIC pareto catch_main)
+    target_link_libraries(ut_${TREETAG}_front_fuzz PUBLIC pareto Catch2::Catch2WithMain)
     target_compile_definitions(ut_${TREETAG}_front_fuzz PRIVATE ${TREETAG}_TREETAG)
     target_longtests_definitions(ut_${TREETAG}_front_fuzz)
     target_exception_options(ut_${TREETAG}_front_fuzz)
@@ -100,7 +97,7 @@ endforeach()
 ### Test Pareto fronts (interface)                  ###
 #######################################################
 add_executable(ut_front_interface front_interface.cpp)
-target_link_libraries(ut_front_interface PUBLIC pareto catch_main)
+target_link_libraries(ut_front_interface PUBLIC pareto Catch2::Catch2WithMain)
 target_longtests_definitions(ut_front_interface)
 target_exception_options(ut_front_interface)
 target_bigobj_options(ut_front_interface)
@@ -113,7 +110,7 @@ catch_discover_tests(ut_front_interface)
 # Create test with the tests_archive_instantiation
 foreach (TREETAG ${TREETAGS})
     add_executable(ut_${TREETAG}_archive_fuzz archive.cpp)
-    target_link_libraries(ut_${TREETAG}_archive_fuzz PUBLIC pareto catch_main)
+    target_link_libraries(ut_${TREETAG}_archive_fuzz PUBLIC pareto Catch2::Catch2WithMain)
 #    if (Matplot++_FOUND)
 #        target_link_libraries(ut_${TREETAG}_archive_fuzz PRIVATE Matplot++::matplot pareto)
 #        target_compile_definitions(ut_${TREETAG}_archive_fuzz PRIVATE INCLUDE_MATPLOT)

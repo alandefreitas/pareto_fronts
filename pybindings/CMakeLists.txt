@@ -7,13 +7,12 @@
 # This is important: see One Definition Rule (ODR)
 CPMAddPackage(
         NAME pybind11
-        GIT_REPOSITORY https://github.com/pybind/pybind11/
-        VERSION 2.6.1
+        GITHUB_REPOSITORY pybind/pybind11
+        VERSION 2.12.0
         OPTIONS
         "PYBIND11_TEST OFF"
         "PYBIND11_INSTALL OFF"
 )
-
 #######################################################
 ### Create bindings                                 ###
 #######################################################
